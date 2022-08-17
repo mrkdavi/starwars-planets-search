@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
-import FilterInput from './components/FilterInput';
+import NameFilter from './components/NameFilter';
+import NumericFilter from './components/NumericFilter';
 import Table from './components/Table';
 import { PlanetsProvider } from './context/PlanetsContext';
 
 function App() {
   return (
     <PlanetsProvider>
-      <FilterInput />
+      <NameFilter />
+      <NumericFilter />
       <Table />
     </PlanetsProvider>
   );

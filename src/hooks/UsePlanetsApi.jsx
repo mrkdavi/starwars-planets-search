@@ -16,6 +16,7 @@ const UserPlanetsApi = () => {
         setPlanets(planetData);
         // setLoading(false);
       });
+    console.warn('=========== Fetch feito ===========');
   }, []);
 
   return { planets, setPlanets, isLoading };
