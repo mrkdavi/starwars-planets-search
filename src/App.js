@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Filters from './components/Filters';
 import NameFilter from './components/NameFilter';
 import NumericFilter from './components/NumericFilter';
 import Table from './components/Table';
@@ -10,6 +11,7 @@ function App() {
     <PlanetsProvider>
       <NameFilter />
       <NumericFilter />
+      <Filters />
       <Table />
     </PlanetsProvider>
   );

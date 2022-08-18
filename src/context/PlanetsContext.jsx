@@ -22,7 +22,6 @@ export function PlanetsProvider({ children }) {
     setPlanetsNameFiltered(planets);
   }, [planets]);
   useEffect(() => {
-    console.log('entrei', planetsNumericFiltered, '|', planetsNameFiltered);
     setPlanetsNumericFiltered(planetsNameFiltered);
   }, [planetsNameFiltered]);
 
@@ -46,34 +45,43 @@ export function PlanetsProvider({ children }) {
     );
   };
 
-  const removeColumn = (columnToRemove) => {
-    setColumns(columns.filter((column) => column !== columnToRemove));
-  };
-
-  const onSetFilter = (filterByNumeric) => {
-    console.log(1, filterByNumeric.column);
-    setFilters([
-      ...filters,
-      filterByNumeric,
-    ]);
-    console.log(1, columns);
-    removeColumn(filterByNumeric.column);
-    console.log(2, columns);
-  };
-
   const filterPlanetsNumeric = () => {
+    let planetsToFilter = planets;
     filters.forEach((filter) => {
       const { column, comparison, value } = filter;
-      const numericFiltered = planetsNumericFiltered.filter((planet) => {
+      const numericFiltered = planetsToFilter.filter((planet) => {
         if (planet[column] === 'unknown') return false;
         return compare(Number(planet[column]), comparison, value);
       });
       setPlanetsNumericFiltered(numericFiltered);
       setThereIsNumericFilter(true);
+      planetsToFilter = planetsNumericFiltered;
     });
   };
 
+  const removeAllFilters = () => {
+    setFilters([]);
+  };
+
+  const removeColumn = (columnToRemove) => {
+    setColumns(columns.filter((column) => column !== columnToRemove));
+  };
+
+  const addColumn = (columnToAdd) => {
+    setColumns([...columns, columnToAdd]);
+    setFilters(filters.filter((filter) => filter.column !== columnToAdd));
+  };
+
+  const onSetFilter = (filterByNumeric) => {
+    setFilters([
+      ...filters,
+      filterByNumeric,
+    ]);
+    removeColumn(filterByNumeric.column);
+  };
+
   useEffect(() => {
+    setPlanetsNumericFiltered(planets);
     filterPlanetsNumeric();
   }, [filters]);
 
@@ -81,8 +89,10 @@ export function PlanetsProvider({ children }) {
     planets: planetsNumericFiltered,
     filterPlanetsByName,
     filterPlanetsNumeric,
+    addColumn,
     filters,
     onSetFilter,
+    removeAllFilters,
     columns,
   };
 

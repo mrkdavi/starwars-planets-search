@@ -8,7 +8,6 @@ const NumericFilter = () => {
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState(0);
 
-  console.log('renderizou', columns);
   const resetInputs = () => {
     setValue(0);
   };
