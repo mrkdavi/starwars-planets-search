@@ -8,7 +8,8 @@ export function PlanetsProvider({ children }) {
   const { planets } = UserPlanetsApi();
   const [planetsNameFiltered, setPlanetsNameFiltered] = useState([]);
   const [planetsNumericFiltered, setPlanetsNumericFiltered] = useState([]);
-  const [, setThereIsNumericFilter] = useState(false);
+  const [thereIsNumericFilter, setThereIsNumericFilter] = useState(false);
+  const [filters, setFilters] = useState([]);
   const [columns] = useState([
     'population',
     'rotation_period',
@@ -21,6 +22,7 @@ export function PlanetsProvider({ children }) {
     setPlanetsNameFiltered(planets);
   }, [planets]);
   useEffect(() => {
+    console.log('entrei', planetsNumericFiltered, '|', planetsNameFiltered);
     setPlanetsNumericFiltered(planetsNameFiltered);
   }, [planetsNameFiltered]);
 
@@ -37,25 +39,37 @@ export function PlanetsProvider({ children }) {
 
   const filterPlanetsByName = ({ filterByName }) => {
     console.log(filterByName);
+    const planetsToFilter = thereIsNumericFilter
+      ? planetsNumericFiltered
+      : planets;
+    console.log(planetsToFilter);
     setPlanetsNameFiltered(
-      planets.filter((planet) => planet.name.includes(filterByName.name)),
+      planetsToFilter.filter((planet) => planet.name.includes(filterByName.name)),
     );
   };
 
-  const filterPlanetsNumeric = ({ filterByNumericValues }) => {
-    const { column, comparison, value } = filterByNumericValues;
-    const numericFiltered = planetsNameFiltered.filter((planet) => {
-      if (planet[column] === 'unknown') return false;
-      return compare(Number(planet[column]), comparison, value);
+  const filterPlanetsNumeric = () => {
+    filters.forEach((filter) => {
+      const { column, comparison, value } = filter;
+      const numericFiltered = planetsNumericFiltered.filter((planet) => {
+        if (planet[column] === 'unknown') return false;
+        return compare(Number(planet[column]), comparison, value);
+      });
+      setPlanetsNumericFiltered(numericFiltered);
+      setThereIsNumericFilter(true);
     });
-    setPlanetsNumericFiltered(numericFiltered);
-    setThereIsNumericFilter(true);
   };
+
+  useEffect(() => {
+    filterPlanetsNumeric();
+  }, [filters]);
 
   const contextValue = {
     planets: planetsNumericFiltered,
     filterPlanetsByName,
     filterPlanetsNumeric,
+    filters,
+    setFilters,
     columns,
   };
 

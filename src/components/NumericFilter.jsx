@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { PlanetsContext } from '../context/PlanetsContext';
 
 const NumericFilter = () => {
-  const { columns, filterPlanetsNumeric } = useContext(PlanetsContext);
+  const { columns, filters, setFilters } = useContext(PlanetsContext);
 
   const [column, setColumn] = useState(columns[0]);
   const [comparison, setComparison] = useState('maior que');
@@ -13,13 +13,14 @@ const NumericFilter = () => {
   };
 
   const handlerButton = () => {
-    filterPlanetsNumeric({
-      filterByNumericValues: {
+    setFilters([
+      ...filters,
+      {
         column,
         comparison,
         value: Number(value),
       },
-    });
+    ]);
     resetInputs();
   };
 
