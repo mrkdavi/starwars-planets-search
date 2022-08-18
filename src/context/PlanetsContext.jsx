@@ -46,7 +46,7 @@ export function PlanetsProvider({ children }) {
     const { column, comparison, value } = filterByNumericValues;
     const numericFiltered = planetsNameFiltered.filter((planet) => {
       if (planet[column] === 'unknown') return false;
-      return compare(planet[column], comparison, value);
+      return compare(Number(planet[column]), comparison, value);
     });
     setPlanetsNumericFiltered(numericFiltered);
     setThereIsNumericFilter(true);

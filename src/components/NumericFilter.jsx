@@ -17,13 +17,8 @@ const NumericFilter = () => {
       filterByNumericValues: {
         column,
         comparison,
-        value,
+        value: Number(value),
       },
-    });
-    console.log({
-      column,
-      comparison,
-      value,
     });
     resetInputs();
   };
@@ -55,7 +50,7 @@ const NumericFilter = () => {
         type="number"
         value={ value }
         data-testid="value-filter"
-        onChange={ ({ target }) => setValue(Number(target.value)) }
+        onChange={ ({ target }) => setValue(target.value) }
       />
       <input
         type="button"
