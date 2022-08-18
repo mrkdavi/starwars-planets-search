@@ -3,7 +3,7 @@ import { PlanetsContext } from '../context/PlanetsContext';
 
 const NumericFilter = () => {
   const { columns, onSetFilter } = useContext(PlanetsContext);
-
+  console.log('renderizei o NumericFilter');
   const [column, setColumn] = useState(columns[0]);
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState(0);

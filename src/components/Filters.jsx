@@ -3,6 +3,7 @@ import { PlanetsContext } from '../context/PlanetsContext';
 
 function Filters() {
   const { filters, addColumn, removeAllFilters } = useContext(PlanetsContext);
+  console.log('renderizei o Filters');
   return (
     <div>
       {filters.map((filter, key) => (

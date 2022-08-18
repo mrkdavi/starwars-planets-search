@@ -7,6 +7,7 @@ import Table from './components/Table';
 import { PlanetsProvider } from './context/PlanetsContext';
 
 function App() {
+  console.log('renderizei o App');
   return (
     <PlanetsProvider>
       <NameFilter />

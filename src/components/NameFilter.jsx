@@ -4,7 +4,7 @@ import { PlanetsContext } from '../context/PlanetsContext';
 function NameFilter() {
   // const [inputValue, setInputValue] = useState('');
   const { filterPlanetsByName } = useContext(PlanetsContext);
-
+  console.log('renderizei o NameFilter');
   const handlerInput = ({ target: { value } }) => {
     filterPlanetsByName({ filterByName: { name: value } });
   };

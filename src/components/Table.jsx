@@ -3,7 +3,7 @@ import { PlanetsContext } from '../context/PlanetsContext';
 
 export default function Table() {
   const { planets } = useContext(PlanetsContext);
-
+  console.log('renderizei o Table');
   return (
     <table>
       <thead>
@@ -26,7 +26,7 @@ export default function Table() {
       <tbody>
         { planets.map((planet, key) => (
           <tr key={ key }>
-            <td>{planet.name}</td>
+            <td data-testid="teste-me">{planet.name}</td>
             <td>{ planet.rotation_period }</td>
             <td>{ planet.orbital_period }</td>
             <td>{ planet.diameter }</td>

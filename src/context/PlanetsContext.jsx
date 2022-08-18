@@ -17,7 +17,7 @@ export function PlanetsProvider({ children }) {
     'diameter',
     'surface_water',
   ]);
-
+  console.log('renderizei o PlanetsProvider');
   useEffect(() => {
     setPlanetsNameFiltered(planets);
   }, [planets]);
@@ -60,6 +60,13 @@ export function PlanetsProvider({ children }) {
   };
 
   const removeAllFilters = () => {
+    setColumns([
+      'population',
+      'rotation_period',
+      'orbital_period',
+      'diameter',
+      'surface_water',
+    ]);
     setFilters([]);
   };
 
