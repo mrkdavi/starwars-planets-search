@@ -1,26 +1,32 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { PlanetsContext } from '../context/PlanetsContext';
 
 const NumericFilter = () => {
-  const { columns, filters, setFilters } = useContext(PlanetsContext);
+  const { columns, onSetFilter } = useContext(PlanetsContext);
 
   const [column, setColumn] = useState(columns[0]);
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState(0);
 
+  console.log('renderizou', columns);
   const resetInputs = () => {
     setValue(0);
   };
 
+  useEffect(() => {
+    if (columns) {
+      setColumn(columns[0]);
+    }
+  }, [columns]);
+
   const handlerButton = () => {
-    setFilters([
-      ...filters,
+    onSetFilter(
       {
         column,
         comparison,
         value: Number(value),
       },
-    ]);
+    );
     resetInputs();
   };
 
@@ -29,6 +35,7 @@ const NumericFilter = () => {
       <select
         name="column"
         data-testid="column-filter"
+        value={ column }
         onChange={ ({ target }) => setColumn(target.value) }
       >
         {columns.map((columnName, key) => (

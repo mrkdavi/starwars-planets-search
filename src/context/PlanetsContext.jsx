@@ -10,7 +10,7 @@ export function PlanetsProvider({ children }) {
   const [planetsNumericFiltered, setPlanetsNumericFiltered] = useState([]);
   const [thereIsNumericFilter, setThereIsNumericFilter] = useState(false);
   const [filters, setFilters] = useState([]);
-  const [columns] = useState([
+  const [columns, setColumns] = useState([
     'population',
     'rotation_period',
     'orbital_period',
@@ -38,14 +38,27 @@ export function PlanetsProvider({ children }) {
   };
 
   const filterPlanetsByName = ({ filterByName }) => {
-    console.log(filterByName);
     const planetsToFilter = thereIsNumericFilter
       ? planetsNumericFiltered
       : planets;
-    console.log(planetsToFilter);
     setPlanetsNameFiltered(
       planetsToFilter.filter((planet) => planet.name.includes(filterByName.name)),
     );
+  };
+
+  const removeColumn = (columnToRemove) => {
+    setColumns(columns.filter((column) => column !== columnToRemove));
+  };
+
+  const onSetFilter = (filterByNumeric) => {
+    console.log(1, filterByNumeric.column);
+    setFilters([
+      ...filters,
+      filterByNumeric,
+    ]);
+    console.log(1, columns);
+    removeColumn(filterByNumeric.column);
+    console.log(2, columns);
   };
 
   const filterPlanetsNumeric = () => {
@@ -69,7 +82,7 @@ export function PlanetsProvider({ children }) {
     filterPlanetsByName,
     filterPlanetsNumeric,
     filters,
-    setFilters,
+    onSetFilter,
     columns,
   };
 
