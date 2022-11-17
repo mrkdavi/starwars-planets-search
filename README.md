@@ -21,7 +21,7 @@
 ## 📋 About
 At this project you can see star wars planets and filter them by data.
 
-<img src="./assets/filter-screen.png" align="right" alt="drawing" width="500"/>
+<img src="./assets/filter-screen.png" alt="website mockup design" width="800"/>
 <em>website mockup design</em>
 
 ## 💻 Technology
